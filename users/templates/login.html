@@ -1,0 +1,33 @@
+{% extends 'base_login.html' %}
+{% load staticfiles %}
+
+Login
+{% block body %}
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+  <h2 align="center">CTF Manager</h2>
+  <form method="post">
+    <form class="form-signin" role="form" action="{% url 'userLogin' %}" method="POST">
+        {% csrf_token %}
+
+        <h2 class="form-signin-heading" align="center"><img src="{% static 'img/logo.png'%}" width="200"></h2>
+        <div class="form-group">
+        <input type="text" name="username" class="form-control input-lg" placeholder="Username" required autofocus>
+      </div>
+      <div class="form-group">
+        <input type="password" name="password" class="form-control input-lg" placeholder="Password" required>
+      </div>
+        {% if error %}
+        <div class="alert alert-dismissible alert-danger">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+  <span aria-hidden="true">&times;</span>
+</button>
+<strong>Ops!</strong>{{error}}
+                        </div>
+        {% endif %}
+        <button class="btn btn-lg btn-primary" type="submit" value="Login">Login</button>
+
+  </form>
+</div>
+</div>
+{% endblock %}

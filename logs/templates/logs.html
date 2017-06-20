@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="col-md-6">
+<div class="well">
+  <div class="panel panel-primary">
+  <div class="panel-heading"><h3 class="panel-title">Challenges logs</h3></div>
+<div class="panel-body">
+                <table class="table table-striped table-hover ">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Nick</th>
+                            <th>log</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {%for challenge in challenges%}
+                        <tr>
+                            <td>{{challenge.id}}</td>
+                            <td>{{challenge.user_logged.username}}</td>
+                            <td>{{challenge.message}}</td>
+                        </tr>
+                        {%endfor%}
+                    </tbody>
+                </table>
+            </div>
+          </div>
+          </div>
+</div>
+
+<div class="col-md-6">
+<div class="well">
+  <div class="panel panel-primary">
+  <div class="panel-heading"><h3 class="panel-title">Users logs</h3></div>
+<div class="panel-body">
+                <table class="table table-striped table-hover ">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Nick</th>
+                            <th>log</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {%for user in users%}
+                        <tr>
+                            <td>{{user.id}}</td>
+                            <td>{{user.user_logged.username}}</td>
+                            <td>{{user.message}}</td>
+                        </tr>
+                        {%endfor%}
+                    </tbody>
+                </table>
+            </div>
+          </div>
+          </div>
+</div>
+
+<div class="col-md-6">
+<div class="well">
+  <div class="panel panel-primary">
+  <div class="panel-heading"><h3 class="panel-title">Events logs</h3></div>
+<div class="panel-body">
+                <table class="table table-striped table-hover ">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Nick</th>
+                            <th>log</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {%for event in events%}
+                        <tr>
+                            <td>{{event.id}}</td>
+                            <td>{{event.user_logged.username}}</td>
+                            <td>{{event.message}}</td>
+                        </tr>
+                        {%endfor%}
+                    </tbody>
+                </table>
+            </div>
+          </div>
+          </div>
+</div>
+
+
+{%endblock%}

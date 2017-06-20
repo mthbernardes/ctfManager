@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="col-lg-12">
+   <h1>Events</h1>
+</div>
+<div class="col-lg-12">
+   <div class="panel panel-success">
+      <div class="panel-heading">
+         <h3 class="panel-title">{{events.count}} Events{{events.count|pluralize}}</h3>
+      </div>
+      <div class="panel-body">
+         <table class="table table-striped table-hover">
+            {% if events.count%}
+            <thead>
+               <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Date</th>
+                  <th>Challenges</th>
+               </tr>
+            </thead>
+            <tbody>
+               {%for event in events%}
+               <tr>
+                  <td>{{event.id}}</td>
+                  <td>{{event.name}}</td>
+                  <td>{{event.date}}</td>
+                  <td>{{event.challenges.count}}</td>
+                  <td>
+                     {% if user.is_staff %}
+                     <a href="{% url 'eventDelete' event.id %}" class="pull-right label label-danger">delete</a>
+                     <a href="{% url 'eventEdit' event.id%}" class="pull-right label label-info">edit</a>
+                     {%endif%}
+                     <a href="{% url 'eventChallenges' event.id %}" class="pull-right label label-warning">set challenges</a>
+                     <a class="pull-right label label-success" data-toggle="modal" data-target="#{{event.id}}">view</a>
+                     <!-- Modal -->
+                     <div class="modal fade bs-example-modal-lg" id="{{event.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog modal-lg" role="document">
+                           <div class="modal-content">
+                              <div class="modal-header">
+                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                 <h4 class="modal-title" id="myModalLabel">
+                                   <h1>{{event.name}} {{event.event_tag}}</h1><br>
+                                   Created by: {{event.created_by}}<br>
+                                   Start date: {{event.start_date}}<br>
+                                   End date: {{event.end_date}}<br>
+                                 </h4>
+                              </div>
+                              <div class="modal-body">
+                                 <h3>Description</h3>
+                                 <p>{{event.description|linebreaks}}</p>
+                                 <h3>Prize</h3>
+                                 <p>{{event.prize|linebreaks}}</p>
+                                 <h3>Challenges</h3>
+                                 {% for chall in event.EventsChallenges_events.all %}
+                                 <p>{{chall.challenge.name}}</p>
+                                 {%endfor%}
+                              </div>
+                              <div class="modal-footer">
+                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                              </div>
+                           </div>
+                        </div>
+                      </div>
+                  </td>
+               </tr>
+               {%endfor%}
+               {%else%}
+               <div class="alert alert-dismissible alert-danger">
+               <strong>NO EVENTS</strong>
+               </div>
+               {% endif %}
+         </table>
+         <a href="{%url 'eventRegister'%}" class="btn btn-primary">New Event</a>
+         </div>
+      </div>
+   </div>
+</div>
+{% endblock %}

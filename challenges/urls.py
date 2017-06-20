@@ -1,4 +1,4 @@
-"""ctfManager URL Configuration
+"""escutador URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.11/topics/http/urls/
@@ -14,18 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url,include
-from django.contrib import admin
-from django.conf.urls.static import static
-from django.views.static import serve
-from django.conf import settings
+from challenges import views
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT,}),
-    url(r'^', include('users.urls')),
-    url(r'^', include('challenges.urls')),
-    url(r'^', include('index.urls')),
-    url(r'^', include('logs.urls')),
-    url(r'^', include('events.urls')),
-    url(r'^', include('ctf_platform.urls')),
+    url(r'^manager/ctf/challenges$', views.challenges,name='challenges'),
+    url(r'^manager/ctf/challenge/register$', views.challengeRegister,name='challengeRegister'),
+    url(r'^manager/ctf/challenge/edit/(?P<challenge_id>\d+)$', views.challengeEdit,name='challengeEdit'),
+    url(r'^manager/ctf/challenge/delete/(?P<challenge_id>\d+)$', views.challengeDelete,name='challengeDelete'),
+    url(r'^manager/ctf/challenge/download/(?P<challenge_id>\d+)$', views.challengeDownload,name='challengeDownload'),
 ]

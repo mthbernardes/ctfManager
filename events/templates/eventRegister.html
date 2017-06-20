@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="col-lg-12">
+   <h1>Event Register</h1>
+</div>
+<div class="col-lg-12">
+   <div class="panel panel-success">
+      <div class="panel-body">
+        {% if event%}
+        <form class="form-horizontal" action="{%url 'eventEdit' event.id%}" method='POST' enctype="multipart/form-data">
+        {%else%}
+        <form class="form-horizontal" action="{%url 'eventRegister'%}" method='POST' enctype="multipart/form-data">
+        {%endif%}
+         {% csrf_token %}
+         <fieldset>
+           {%if event%}
+            <legend>Edit {{event.name}}</legend>
+            {%else%}
+            <legend>Create a new event</legend>
+            {%endif%}
+            <div class="form-group">
+               <label for="inputEmail" class="col-lg-2 control-label">Name</label>
+               <div class="col-lg-10">
+                  <input class="form-control" name="name" value="{{event.name}}" placeholder="Challenge Name" type="text" required {%if sysuser%}disabled{%endif%}>
+               </div>
+            </div>
+
+            <div class="form-group">
+               <label for="inputEmail" class="col-lg-2 control-label">Description</label>
+               <div class="col-lg-10">
+                  <textarea class="form-control" name="description" placeholder="Challenge Description" type="text" rows=10 required>{{event.description}}</textarea>
+               </div>
+            </div>
+
+            <div class="form-group">
+               <label for="inputEmail" class="col-lg-2 control-label">Prize</label>
+               <div class="col-lg-10">
+                  <textarea class="form-control" name="prize" placeholder="Challenge Description" type="text" rows=10 required>{{event.prize}}</textarea>
+               </div>
+            </div>
+
+            <div class="form-group">
+               <label for="inputEmail" class="col-lg-2 control-label">Event Start Date</label>
+               <div class="col-lg-10">
+                  <input class="form-control" name="start_date" value="{% now "Y-n-j H:i:s" %}" placeholder="Event Start Date" type="text" rows=10>
+               </div>
+            </div>
+
+            <div class="form-group">
+               <label for="inputEmail" class="col-lg-2 control-label">Event End Date</label>
+               <div class="col-lg-10">
+                  <input class="form-control" name="end_date" placeholder="Event End Date" value="{% now "Y-n-j H:i:s" %}" type="text" rows=10>
+               </div>
+            </div>
+
+            <div class="form-group">
+               <label class="col-lg-2 control-label">Event Logo</label>
+               <div class="col-lg-10">
+
+                 <div class="fileinput fileinput-new" data-provides="fileinput">
+                     <span class="btn btn-default btn-file"><span>Choose file</span><input type="file" name="event_logo" /></span>
+                     <span class="fileinput-filename"></span><span class="fileinput-new"></span>
+          </div>
+        </div>
+      </div>
+
+        <div class="form-group">
+           <label class="col-lg-2 control-label">Event Wallpaper</label>
+           <div class="col-lg-10">
+
+             <div class="fileinput fileinput-new" data-provides="fileinput">
+                 <span class="btn btn-default btn-file"><span>Choose file</span><input type="file" name="event_wallpaper" /></span>
+                 <span class="fileinput-filename"></span><span class="fileinput-new"></span>
+      </div>
+    </div>
+  </div>
+
+
+
+         {%if event%}
+         <button type="submit" class="btn btn-primary">Edit Challenge</button>
+          {%else%}
+          <button type="submit" class="btn btn-primary">Create Challenge</button>
+          {%endif%}
+         </form>
+
+      </div>
+
+      </div>
+</div>
+
+{% endblock %}

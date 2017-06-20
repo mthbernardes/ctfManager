@@ -1,0 +1,53 @@
+{% load staticfiles %}
+<!DOCTYPE HTML>
+<html lang="pt-br">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width">
+      <link rel="shortcut icon" href="{% static 'img/logo.png'%}">
+      <link rel="stylesheet" href="{% static 'styles/hacker.css' %}">
+      <script src="{% static 'styles/jquery.min.js' %}"></script>
+      <script src="{% static 'styles/bootstrap.min.js' %}"></script>
+      <title>CTF-Manager</title>
+      <style>
+      body{
+   background-image: url("{% static 'img/world.jpg' %}");
+   background-repeat: no-repeat;
+   background-attachment: fixed;
+}
+</style>
+   </head>
+   <body >
+      <div class="container">
+         <div class="header">
+            <ul class="nav nav-pills pull-right">
+              <li><a href="{%url 'dashboard' %}">Dashboard</a></li>
+               <li><a href="{%url 'challenges' %}">Challenges</a></li>
+               <li><a href="{%url 'events' %}">Events</a></li>
+               <li class="dropdown">
+                                       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{user.username}}<span class="caret"></span> </a>
+                                       <ul class="dropdown-menu" role="menu">
+                                         <li><a href="{%url 'userPassword' %}">Change Password</a></li>
+                                         <li><a href="{%url 'userLogout' %}">logout</a></li>
+
+                                         {% if user.is_staff%}
+
+                                           <li class="divider"></li>
+                                           <li class="dropdown-header">Administration</li>
+                                           <li><a href="{%url 'usersView' %}">Users</a></li>
+                                           <li><a href="{%url 'logs' %}">Logs</a></li>
+                                           {% endif %}
+                                       </ul>
+                                   </li>            </ul>
+            <h3><img src="{% static 'img/logo.png'%}" width="100"></h3>
+         </div>
+         <div class="row content">
+           {% block body %}
+
+           {% endblock %}
+         </div>
+
+      </div>
+
+   </body>
+</html>
